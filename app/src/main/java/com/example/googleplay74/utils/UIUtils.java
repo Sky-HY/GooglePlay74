@@ -8,6 +8,7 @@ import android.os.Process;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.googleplay74.global.GooglePlayApplication;
 
@@ -102,6 +103,20 @@ public class UIUtils {
             // 切换到主线程。原理是因为looper在主线程
             getHandler().post(r);
         }
+    }
+
+
+    /////////////////////显示toast//////////////////////////////////////
+
+    private static Toast toast;
+
+    public static void showToast(String content) {
+        if (toast == null) {
+            toast = Toast.makeText(UIUtils.getContext(), content, Toast.LENGTH_SHORT);
+        } else {
+            toast.setText(content);
+        }
+        toast.show();
     }
 
 }
