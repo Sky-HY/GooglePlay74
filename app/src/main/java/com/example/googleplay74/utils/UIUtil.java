@@ -15,7 +15,7 @@ import com.example.googleplay74.global.GooglePlayApplication;
 /**
  * 常用工具类
  */
-public class UIUtils {
+public class UIUtil {
 
     /////////////////////////////获取全局信息////////////////////////////////////////////////////
 
@@ -112,7 +112,7 @@ public class UIUtils {
 
     public static void showToast(String content) {
         if (toast == null) {
-            toast = Toast.makeText(UIUtils.getContext(), content, Toast.LENGTH_SHORT);
+            toast = Toast.makeText(UIUtil.getContext(), content, Toast.LENGTH_SHORT);
         } else {
             toast.setText(content);
         }

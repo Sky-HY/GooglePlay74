@@ -1,13 +1,12 @@
 package com.example.googleplay74.ui.adapter;
 
-import android.os.SystemClock;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.example.googleplay74.ui.holder.BaseHolder;
 import com.example.googleplay74.ui.holder.MoreViewHolder;
-import com.example.googleplay74.utils.UIUtils;
+import com.example.googleplay74.utils.UIUtil;
 
 import java.util.List;
 
@@ -71,7 +70,7 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
                 // 加载更多条目
                 holder = new MoreViewHolder(hasMore());
             } else {
-                // 普通条目
+                // 普通条目，具体什么条目,子类实现
                 holder = instanceHolder();
             }
         } else {
@@ -112,15 +111,14 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
                 @Override
                 public void run() {
                     final List<T> listData = onLoadMore();
-                    SystemClock.sleep(1000);
-                    UIUtils.runOnUIThread(new Runnable() {
+                    UIUtil.runOnUIThread(new Runnable() {
                         @Override
                         public void run() {
                             if (listData != null) {
                                 if (listData.size() < 20) {
                                     // 没有更多数据了
                                     holder.setData(MoreViewHolder.STATE_MORE_EMPTY);
-                                    UIUtils.showToast("没有更多数据了...");
+                                    UIUtil.showToast("没有更多数据了...");
                                 } else {
                                     // 还有更多数据
                                     holder.setData(MoreViewHolder.STATE_MORE_MORE);

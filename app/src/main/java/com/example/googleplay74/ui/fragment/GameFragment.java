@@ -1,8 +1,11 @@
 package com.example.googleplay74.ui.fragment;
 
+import android.graphics.Color;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.googleplay74.ui.view.LoadingPager;
+import com.example.googleplay74.utils.UIUtil;
 
 /**
  * 游戏fragment
@@ -10,11 +13,15 @@ import com.example.googleplay74.ui.view.LoadingPager;
 public class GameFragment extends BaseFragment {
     @Override
     public View onCreateSeccessView() {
-        return null;
+        TextView textView = new TextView(UIUtil.getContext());
+        textView.setText("game");
+        textView.setTextColor(Color.RED);
+        textView.setTextSize(20);
+        return textView;
     }
 
     @Override
     public LoadingPager.ResultState onLoad() {
-        return null;
+        return LoadingPager.ResultState.STATE_SUCCESS;
     }
 }

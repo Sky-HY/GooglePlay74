@@ -1,13 +1,15 @@
 package com.example.googleplay74.ui.fragment;
 
 import android.view.View;
-import android.widget.ListView;
 
+import com.example.googleplay74.domain.AppInfo;
+import com.example.googleplay74.http.protocol.HomeProtocol;
 import com.example.googleplay74.ui.adapter.MyBaseAdapter;
 import com.example.googleplay74.ui.holder.BaseHolder;
 import com.example.googleplay74.ui.holder.HomeViewHolder;
 import com.example.googleplay74.ui.view.LoadingPager;
-import com.example.googleplay74.utils.UIUtils;
+import com.example.googleplay74.ui.view.NoDividerListView;
+import com.example.googleplay74.utils.UIUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,45 +19,46 @@ import java.util.List;
  */
 public class HomeFragment extends BaseFragment {
 
-    private List<String> data;
-    private ListView lv;
+    private NoDividerListView lv;
+    private ArrayList<AppInfo> data;
+    private HomeProtocol protocol;
 
     @Override
     public View onCreateSeccessView() {
-        lv = new ListView(UIUtils.getContext());
+        lv = new NoDividerListView(UIUtil.getContext());
+
         lv.setAdapter(new HomeAdapter(data));
         return lv;
     }
 
+    // 子线程
     @Override
     public LoadingPager.ResultState onLoad() {
-        data = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            data.add("我是数据:" + i);
-        }
-
-        return LoadingPager.ResultState.STATE_SUCCESS;
+        protocol = new HomeProtocol();
+        data = protocol.getData(0);
+        // 校验数据
+        return check(data);
     }
 
-    private class HomeAdapter extends MyBaseAdapter<String> {
 
+    // listView适配器子类
+    private class HomeAdapter extends MyBaseAdapter<AppInfo> {
 
-        public HomeAdapter(List<String> data) {
+        public HomeAdapter(List<AppInfo> data) {
             super(data);
         }
 
+        // 返回对应的ViewHolder
         @Override
-        public BaseHolder<String> instanceHolder() {
+        public BaseHolder<AppInfo> instanceHolder() {
             return new HomeViewHolder();
         }
 
+        // 加载更多
         @Override
-        public List<String> onLoadMore() {
-            ArrayList<String> list = new ArrayList<>();
-            for (int i = 0; i < 19; i++) {
-                list.add("我是加载更多的数据:" + i);
-            }
-            return list;
+        public List<AppInfo> onLoadMore() {
+            // 当前集合的下标作为网络请求数据的索引
+            return protocol.getData(getDataSize());
         }
 
     }

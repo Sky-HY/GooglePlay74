@@ -1,26 +1,57 @@
 package com.example.googleplay74.ui.fragment;
 
-import android.graphics.Color;
 import android.view.View;
-import android.widget.TextView;
 
+import com.example.googleplay74.domain.AppInfo;
+import com.example.googleplay74.http.protocol.AppProtocol;
+import com.example.googleplay74.ui.adapter.MyBaseAdapter;
+import com.example.googleplay74.ui.holder.AppViewHolder;
+import com.example.googleplay74.ui.holder.BaseHolder;
 import com.example.googleplay74.ui.view.LoadingPager;
-import com.example.googleplay74.utils.UIUtils;
+import com.example.googleplay74.ui.view.NoDividerListView;
+import com.example.googleplay74.utils.UIUtil;
+
+import java.util.List;
 
 /**
  * 应用fragment
  */
 public class AppFragment extends BaseFragment {
+    private List<AppInfo> data;
+    private NoDividerListView lv;
+
     @Override
     public View onCreateSeccessView() {
-        TextView view = new TextView(UIUtils.getContext());
-        view.setText(getClass().getSimpleName());
-        view.setTextColor(Color.RED);
-        return view;
+        lv = new NoDividerListView(UIUtil.getContext());
+        lv.setAdapter(new AppAdapter(data));
+        return lv;
     }
 
     @Override
     public LoadingPager.ResultState onLoad() {
-        return LoadingPager.ResultState.STATE_SUCCESS;
+
+        AppProtocol appProtocol = new AppProtocol();
+        data = appProtocol.getData(0);
+
+        return check(data);
+    }
+
+    class AppAdapter extends MyBaseAdapter<AppInfo> {
+
+        public AppAdapter(List<AppInfo> data) {
+            super(data);
+        }
+
+        @Override
+        public BaseHolder<AppInfo> instanceHolder() {
+            return new AppViewHolder();
+        }
+
+        @Override
+        public List<AppInfo> onLoadMore() {
+            AppProtocol appProtocol = new AppProtocol();
+            data = appProtocol.getData(getDataSize());
+            return data;
+        }
     }
 }

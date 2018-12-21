@@ -24,7 +24,7 @@ import android.widget.TextView;
 
 import com.cn.googleplay74.R;
 import com.example.googleplay74.ui.activity.BaseActivity;
-import com.example.googleplay74.utils.UIUtils;
+import com.example.googleplay74.utils.UIUtil;
 
 /**
  * ViewPager页签
@@ -96,11 +96,11 @@ public class PagerTab extends ViewGroup {
 	/** 初始化一些常量 */
 	private void init() {
 		//把一个值从dip转换成px
-		mIndicatorHeight = UIUtils.dip2px(mIndicatorHeight);
-		mDividerPadding = UIUtils.dip2px(mDividerPadding);
-		mTabPadding = UIUtils.dip2px(mTabPadding);
-		mDividerWidth = UIUtils.dip2px(mDividerWidth);
-		mTabTextSize = UIUtils.dip2px(mTabTextSize);
+		mIndicatorHeight = UIUtil.dip2px(mIndicatorHeight);
+		mDividerPadding = UIUtil.dip2px(mDividerPadding);
+		mTabPadding = UIUtil.dip2px(mTabPadding);
+		mDividerWidth = UIUtil.dip2px(mDividerWidth);
+		mTabTextSize = UIUtil.dip2px(mTabTextSize);
 		//创建一个scroller
 		mScroller = ScrollerCompat.create(mActivity);
 		//获取一个系统关于View的常量配置类
@@ -176,8 +176,8 @@ public class PagerTab extends ViewGroup {
 		tab.setSingleLine();
 		tab.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTabTextSize);
 		tab.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-		tab.setTextColor(UIUtils.getColorStateList(mTabTextColorResId));
-		tab.setBackgroundDrawable(UIUtils.getDrawable(mTabBackgroundResId));
+		tab.setTextColor(UIUtil.getColorStateList(mTabTextColorResId));
+		tab.setBackgroundDrawable(UIUtil.getDrawable(mTabBackgroundResId));
 		tab.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
 		addTab(position, tab);
 	}

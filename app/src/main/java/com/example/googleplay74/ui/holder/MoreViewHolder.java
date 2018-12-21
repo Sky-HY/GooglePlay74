@@ -5,7 +5,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cn.googleplay74.R;
-import com.example.googleplay74.utils.UIUtils;
+import com.example.googleplay74.utils.UIUtil;
 
 /**
  * 加载更多的ViewHolder
@@ -26,7 +26,7 @@ public class MoreViewHolder extends BaseHolder<Integer> {
 
     @Override
     public View initView() {
-        View view = UIUtils.inflate(R.layout.list_itme_more, null);
+        View view = UIUtil.inflate(R.layout.list_itme_more, null);
         ll_more = view.findViewById(R.id.ll_more);
         tv_more_error = view.findViewById(R.id.tv_more_error);
         return view;

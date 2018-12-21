@@ -11,7 +11,7 @@ import android.support.v7.widget.Toolbar;
 import com.cn.googleplay74.R;
 import com.example.googleplay74.ui.fragment.FragmentFactory;
 import com.example.googleplay74.ui.view.PagerTab;
-import com.example.googleplay74.utils.UIUtils;
+import com.example.googleplay74.utils.UIUtil;
 
 public class MainActivity extends BaseActivity {
 
@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivity {
         public MyAdapter(FragmentManager fm) {
             super(fm);
             // 获取ViewPager的页签标题
-            tabStr = UIUtils.getStringArray(R.array.tab_names);
+            tabStr = UIUtil.getStringArray(R.array.tab_names);
         }
 
         // 设置tabPager标题内容

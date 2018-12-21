@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.cn.googleplay74.R;
-import com.example.googleplay74.utils.UIUtils;
+import com.example.googleplay74.utils.UIUtil;
 
 /**
  * 根据当前状态来加载不同的页面的布局
@@ -46,19 +46,26 @@ public abstract class LoadingPager extends FrameLayout {
     private void initUI() {
         // 加载中的布局
         if (mLoadingPager == null) {
-            mLoadingPager = UIUtils.inflate(R.layout.pager_loading, null);
+            mLoadingPager = UIUtil.inflate(R.layout.pager_loading, null);
             addView(mLoadingPager);
         }
 
         // 加载失败的布局
         if (mLoadErrorPager == null) {
-            mLoadErrorPager = UIUtils.inflate(R.layout.pager_load_error, null);
+            mLoadErrorPager = UIUtil.inflate(R.layout.pager_load_error, null);
             addView(mLoadErrorPager);
         }
+        // 重新加载数据
+        mLoadErrorPager.findViewById(R.id.button).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadData();
+            }
+        });
 
         // 加载的内容为空的布局
         if (mLoadEmptyPager == null) {
-            mLoadEmptyPager = UIUtils.inflate(R.layout.pager_load_empty, null);
+            mLoadEmptyPager = UIUtil.inflate(R.layout.pager_load_empty, null);
             addView(mLoadEmptyPager);
         }
 
@@ -125,7 +132,7 @@ public abstract class LoadingPager extends FrameLayout {
                 // 子类实现
                 final ResultState resultState = onLoad();
                 // 工具类,切换到主线程
-                UIUtils.runOnUIThread(new Runnable() {
+                UIUtil.runOnUIThread(new Runnable() {
                     @Override
                     public void run() {
                         if (resultState != null) {
@@ -152,7 +159,7 @@ public abstract class LoadingPager extends FrameLayout {
             this.state = state;
         }
 
-        public int getState(){
+        public int getState() {
             return state;
         }
     }

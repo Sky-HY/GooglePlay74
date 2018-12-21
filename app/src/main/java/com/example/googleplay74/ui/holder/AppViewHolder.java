@@ -11,19 +11,13 @@ import com.cn.googleplay74.R;
 import com.example.googleplay74.domain.AppInfo;
 import com.example.googleplay74.utils.UIUtil;
 
-/**
- * home页面的ViewHolder
- */
-public class HomeViewHolder extends BaseHolder<AppInfo> {
-
-
+public class AppViewHolder extends BaseHolder<AppInfo> {
     private ImageView iv_icon, iv_download;
     private TextView tv_name, tv_size, tv_download, tv_desc;
     private RatingBar rb_star;
-
     @Override
     public View initView() {
-        View view = UIUtil.inflate(R.layout.list_item_home, null);
+        View view = UIUtil.inflate(R.layout.list_item_app, null);
         iv_icon = view.findViewById(R.id.iv_icon);
         tv_name = view.findViewById(R.id.tv_name);
         rb_star = view.findViewById(R.id.rb_star);
