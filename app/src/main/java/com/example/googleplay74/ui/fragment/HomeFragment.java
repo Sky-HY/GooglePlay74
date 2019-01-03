@@ -6,6 +6,7 @@ import com.example.googleplay74.domain.AppInfo;
 import com.example.googleplay74.http.protocol.HomeProtocol;
 import com.example.googleplay74.ui.adapter.MyBaseAdapter;
 import com.example.googleplay74.ui.holder.BaseHolder;
+import com.example.googleplay74.ui.holder.HomeHeaderHolder;
 import com.example.googleplay74.ui.holder.HomeViewHolder;
 import com.example.googleplay74.ui.view.LoadingPager;
 import com.example.googleplay74.ui.view.NoDividerListView;
@@ -22,11 +23,14 @@ public class HomeFragment extends BaseFragment {
     private NoDividerListView lv;
     private ArrayList<AppInfo> data;
     private HomeProtocol protocol;
+    private List<String> mPicLists;
 
     @Override
     public View onCreateSeccessView() {
         lv = new NoDividerListView(UIUtil.getContext());
-
+        HomeHeaderHolder mHeaderHolder = new HomeHeaderHolder();
+        lv.addHeaderView(mHeaderHolder.getView());
+        mHeaderHolder.setData(mPicLists);
         lv.setAdapter(new HomeAdapter(data));
         return lv;
     }
@@ -36,6 +40,7 @@ public class HomeFragment extends BaseFragment {
     public LoadingPager.ResultState onLoad() {
         protocol = new HomeProtocol();
         data = protocol.getData(0);
+        mPicLists = protocol.getPicLists();
         // 校验数据
         return check(data);
     }

@@ -7,11 +7,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * home页面请求网络加载数据
  */
 public class HomeProtocol extends BaseProtocol<ArrayList<AppInfo>> {
+    private ArrayList<String> pics;
+
     @Override
     public String getParamter() {
         return "";
@@ -24,11 +27,12 @@ public class HomeProtocol extends BaseProtocol<ArrayList<AppInfo>> {
 
     @Override
     public ArrayList<AppInfo> paserJson(String result) {
-        ArrayList<AppInfo> appInfos = null;
+        ArrayList<AppInfo> appInfos;
         try {
             JSONObject jo = new JSONObject(result);
             JSONArray ja = jo.getJSONArray("list");
             appInfos = new ArrayList<>();
+            pics = new ArrayList<>();
             for (int i = 0; i < ja.length(); i++) {
                 JSONObject jo1 = ja.getJSONObject(i);
                 AppInfo info = new AppInfo();
@@ -43,12 +47,23 @@ public class HomeProtocol extends BaseProtocol<ArrayList<AppInfo>> {
                 appInfos.add(info);
             }
 
-
+            // 初始化轮播条的数据
+            JSONArray ja1 = jo.getJSONArray("picture");
+            pics = new ArrayList<>();
+            for (int i = 0; i < ja1.length(); i++) {
+                String pic = ja1.getString(i);
+                pics.add(pic);
+            }
 
             return appInfos;
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    // 返回头条轮播的图片
+    public List<String> getPicLists() {
+        return pics;
     }
 }
