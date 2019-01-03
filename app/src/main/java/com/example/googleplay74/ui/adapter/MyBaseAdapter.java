@@ -17,8 +17,8 @@ import java.util.List;
  */
 public abstract class MyBaseAdapter<T> extends BaseAdapter {
 
-    private static final int TYPE_NORMAL = 0; // 加载更多条目
-    private static final int TYPE_MORE = 1;  // 普通条目
+    private static final int TYPE_NORMAL = 1; // 普通条目
+    private static final int TYPE_MORE = 0;  // 加载更多条目
 
     private List<T> data;
 
@@ -32,12 +32,12 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
         if (position == data.size()) {
             return TYPE_MORE;
         } else {
-            return getInnerViewType();
+            return getInnerViewType(position);
         }
     }
 
     // 指定条目的返回类型,子类可以重写
-    public int getInnerViewType() {
+    public int getInnerViewType(int position) {
         return TYPE_NORMAL;
     }
 
@@ -71,7 +71,7 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
                 holder = new MoreViewHolder(hasMore());
             } else {
                 // 普通条目，具体什么条目,子类实现
-                holder = instanceHolder();
+                holder = instanceHolder(position);
             }
         } else {
             holder = (BaseHolder) convertView.getTag();
@@ -89,12 +89,11 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
                 loadMore(moreHolder);
             }
         }
-
         return holder.getView();
     }
 
     // 初始化ViewHolder
-    public abstract BaseHolder<T> instanceHolder();
+    public abstract BaseHolder<T> instanceHolder(int position);
 
     // 是否可以加载更多，默认可以，子类可以重写
     public boolean hasMore() {

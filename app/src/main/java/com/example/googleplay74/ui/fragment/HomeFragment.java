@@ -50,7 +50,7 @@ public class HomeFragment extends BaseFragment {
 
         // 返回对应的ViewHolder
         @Override
-        public BaseHolder<AppInfo> instanceHolder() {
+        public BaseHolder<AppInfo> instanceHolder(int position) {
             return new HomeViewHolder();
         }
 

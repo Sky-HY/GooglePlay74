@@ -42,6 +42,9 @@ public class HomeProtocol extends BaseProtocol<ArrayList<AppInfo>> {
                 info.stars = (float) jo1.getDouble("stars");
                 appInfos.add(info);
             }
+
+
+
             return appInfos;
         } catch (JSONException e) {
             e.printStackTrace();
